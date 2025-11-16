@@ -6,11 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --primary: #00a7c9;      /* turquesa estilo wells */
-      --primary-dark: #0082a0;
-      --primary-light: #e0f7fb;
-      --accent: #ff5c7a;
-      --bg: #f5f7fa;
+      /* PALETA NOVA: VERDE CLARO + AZUL CLARO */
+      --primary: #7bd3a3;       /* verde claro principal */
+      --primary-dark: #45b47c;  /* verde um pouco mais forte */
+      --primary-light: #e6f7ee; /* verde clarinho de fundo */
+
+      --secondary: #7bc7f3;     /* azul claro */
+      --secondary-dark: #4aa9dd;
+
+      --bg: #f4f8fb;
       --card-bg: #ffffff;
       --text: #222;
       --muted: #6b7280;
@@ -37,7 +41,7 @@
 
     /* TOP BAR */
     .top-bar {
-      background: var(--primary);
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
       color: #fff;
       font-size: 0.8rem;
       text-align: center;
@@ -76,7 +80,7 @@
       width: 18px;
       height: 18px;
       border-radius: 999px;
-      background: var(--primary);
+      background: var(--secondary-dark);
       color: #fff;
       display: inline-flex;
       align-items: center;
@@ -183,7 +187,8 @@
     }
 
     .hero-banner {
-      background: radial-gradient(circle at top left, #ffffff 0, #e0f7fb 45%, #ccecf7 100%);
+      /* Gradiente verde + azul claro */
+      background: radial-gradient(circle at top left, #ffffff 0, #e6f7ee 45%, #e3f3fd 100%);
       border-radius: 18px;
       padding: 1.5rem 1.6rem;
       box-shadow: var(--shadow-soft);
@@ -286,8 +291,8 @@
       font-size: 0.7rem;
       padding: 0.15rem 0.55rem;
       border-radius: 999px;
-      background: var(--primary-light);
-      color: var(--primary-dark);
+      background: var(--secondary);
+      color: #0b4a71;
       font-weight: 600;
     }
 
@@ -295,7 +300,7 @@
       font-size: 0.75rem;
       padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      background: var(--accent);
+      background: var(--primary-dark);
       color: #fff;
       font-weight: 600;
     }
@@ -337,7 +342,7 @@
     }
 
     .product-img {
-      background: #f3f4f6;
+      background: linear-gradient(135deg, #f1fbf6, #edf7ff);
       border-radius: 12px;
       height: 120px;
       margin-bottom: 0.35rem;
@@ -359,7 +364,7 @@
       font-size: 0.7rem;
       padding: 0.15rem 0.55rem;
       border-radius: 999px;
-      background: #e5f3ff;
+      background: #e1f4ff;
       color: #2563eb;
       font-weight: 600;
       white-space: nowrap;
@@ -406,14 +411,14 @@
       border: none;
       padding: 0.35rem 0.8rem;
       font-size: 0.8rem;
-      background: var(--primary);
+      background: var(--secondary-dark);
       color: #fff;
       cursor: pointer;
       white-space: nowrap;
     }
 
     .btn-add:hover {
-      background: var(--primary-dark);
+      background: var(--secondary);
     }
 
     /* ABOUT & CONTACT */
