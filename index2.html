@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Farma + Clinic | Dermocosmética & Maquilhagem em Lousada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #00a7c9;      /* turquesa estilo wells */
+      --primary-dark: #0082a0;
+      --primary-light: #e0f7fb;
+      --accent: #ff5c7a;
+      --bg: #f5f7fa;
+      --card-bg: #ffffff;
+      --text: #222;
+      --muted: #6b7280;
+      --radius: 14px;
+      --shadow-soft: 0 6px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 0.4rem 1rem;
+    }
+
+    /* HEADER */
+    header {
+      background: #fff;
+      box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      color: var(--primary-dark);
+    }
+
+    .logo span.plus {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--primary);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .logo small {
+      display: block;
+      font-weight: 500;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #f3f4f6;
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      align-items: center;
+    }
+
+    .header-action {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      cursor: pointer;
+    }
+
+    .header-action span.icon {
+      font-size: 1.1rem;
+    }
+
+    /* NAV CATEGORIES */
+    .nav-cats {
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      background: #fff;
+    }
+
+    .nav-cats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.4rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      font-size: 0.9rem;
+    }
+
+    .nav-cats-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-pill {
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .cat-pill.active {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    /* MAIN LAYOUT */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 3rem;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero-banner {
+      background: radial-gradient(circle at top left, #ffffff 0, #e0f7fb 45%, #ccecf7 100%);
+      border-radius: 18px;
+      padding: 1.5rem 1.6rem;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 220px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--primary-dark);
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-title {
+      font-size: clamp(1.4rem, 1.5vw + 1rem, 1.9rem);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      max-width: 28rem;
+    }
+
+    .hero-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 30rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.9rem 0 1.1rem;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      padding: 0.55rem 1.3rem;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .mini-banner {
+      background: #fff;
+      border-radius: 14px;
+      padding: 0.9rem 1rem;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .mini-banner strong {
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .mini-tag {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+
+    .mini-badge {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* SECTION HEADER */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.25rem;
+    }
+
+    .section-header p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* PRODUCTS GRID */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow-soft);
+      padding: 0.7rem 0.75rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      font-size: 0.85rem;
+    }
+
+    .product-img {
+      background: #f3f4f6;
+      border-radius: 12px;
+      height: 120px;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .product-badges {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .product-pill {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: #e5f3ff;
+      color: #2563eb;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .product-pill.secondary {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .product-name {
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+      min-height: 2.2em;
+    }
+
+    .product-skin {
+      font-size: 0.78rem;
+      color: var(--muted);
+      min-height: 1.6em;
+    }
+
+    .product-bottom {
+      margin-top: 0.35rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 0.35rem;
+    }
+
+    .product-price {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .product-old {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      text-decoration: line-through;
+    }
+
+    .btn-add {
+      border-radius: 999px;
+      border: none;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+      background: var(--primary);
+      color: #fff;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-add:hover {
+      background: var(--primary-dark);
+    }
+
+    /* ABOUT & CONTACT */
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 1.25rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .card h3 {
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .card p + p {
+      margin-top: 0.45rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-label {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      border-top: 1px solid #e5e7eb;
+      margin-top: 2.5rem;
+      padding: 1.3rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .header-main {
+        grid-template-columns: 1fr;
+        row-gap: 0.5rem;
+      }
+
+      .header-actions {
+        justify-content: flex-end;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-banner {
+        min-height: auto;
+      }
+
+      .hero-side {
+        grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding-inline: 1rem;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-banner {
+        padding: 1.2rem 1.1rem;
+      }
+
+      .nav-cats-inner {
+        padding-inline: 1rem;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .products-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    Envio rápido para Lousada e arredores · Aconselhamento farmacêutico personalizado
+  </div>
+
+  <header>
+    <div class="header-main">
+      <div class="logo">
+        FARMA <span class="plus">+</span> CLINIC
+        <small>Lousada</small>
+      </div>
+
+      <div class="search-box">
+        🔍
+        <input type="text" placeholder="Pesquisa por produto, marca ou necessidade…" />
+      </div>
+
+      <div class="header-actions">
+        <div class="header-action">
+          <span class="icon">👤</span>
+          <span>Entrar / Registar</span>
+        </div>
+        <div class="header-action">
+          <span class="icon">🛒</span>
+          <span>Carrinho</span>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav-cats">
+      <div class="nav-cats-inner" id="cats">
+        <button class="cat-pill active" data-filter="all">Todos</button>
+        <button class="cat-pill" data-filter="Skin Care">Skin care</button>
+        <button class="cat-pill" data-filter="Dermocosmética">Dermocosmética</button>
+        <button class="cat-pill" data-filter="Maquilhagem">Maquilhagem</button>
+        <button class="cat-pill" data-filter="Bebé">Bebé & Mamã</button>
+        <button class="cat-pill" data-filter="Solar">Proteção solar</button>
+        <button class="cat-pill" data-filter="Promo">Em promoção</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-banner">
+        <div>
+          <div class="hero-eyebrow">Farma + Clinic · Lousada</div>
+          <h1 class="hero-title">
+            Cuidados de pele, saúde e maquilhagem com aconselhamento de farmácia.
+          </h1>
+          <p class="hero-sub">
+            Explora a nossa seleção de dermocosmética, skin care e maquilhagem,
+            com apoio de equipa farmacêutica para encontrares o produto certo para ti.
+          </p>
+          <div class="hero-tags">
+            <span class="hero-tag">Dermocosmética de referência</span>
+            <span class="hero-tag">Marcas de farmácia</span>
+            <span class="hero-tag">Rotinas personalizadas</span>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <button class="btn-primary">
+            Ver novidades
+            <span>→</span>
+          </button>
+          <span class="hero-note">
+            Fala connosco para montarmos a tua rotina de cuidados de pele.
+          </span>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="mini-banner">
+          <div>
+            <strong>Campanha Skin Care</strong>
+            <span>Até -25% em marcas selecionadas.</span>
+          </div>
+          <span class="mini-badge">Promo</span>
+        </div>
+        <div class="mini-banner">
+          <div>
+            <strong>Consultas de aconselhamento</strong>
+            <span>Marca na loja Farma + Clinic em Lousada.</span>
+          </div>
+          <span class="mini-tag">Saúde & Beleza</span>
+        </div>
+        <div class="mini-banner">
+          <div>
+            <strong>Maquilhagem de farmácia</strong>
+            <span>Bases, corretores e batons para pele sensível.</span>
+          </div>
+          <span class="mini-tag">Novidades</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section>
+      <div class="section-header">
+        <div>
+          <h2>Produtos em destaque</h2>
+          <p>Algumas sugestões de dermocosmética e maquilhagem da Farma + Clinic.</p>
+        </div>
+      </div>
+
+      <div class="products-grid" id="products-grid">
+        <!-- JS injeta aqui -->
+      </div>
+    </section>
+
+    <!-- SOBRE + CONTACTO -->
+    <section>
+      <div class="section-header">
+        <h2>Farma + Clinic Lousada</h2>
+        <p>Saúde, bem-estar e beleza num só espaço.</p>
+      </div>
+
+      <div class="two-col">
+        <article class="card">
+          <h3>Quem somos</h3>
+          <p>
+            A <strong>Farma + Clinic</strong> junta o melhor da farmácia e da dermocosmética,
+            com uma equipa preparada para te ajudar em temas como acne, pele sensível,
+            envelhecimento, manchas ou escolha de maquilhagem adequada ao teu tipo de pele.
+          </p>
+          <p>
+            Se preferires, podes falar connosco antes de comprar: explicamos como usar cada produto
+            e ajudamos-te a montar uma rotina simples, eficaz e segura.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Contacto e localização</h3>
+          <div class="contact-grid">
+            <div>
+              <div class="contact-label">Morada</div>
+              <div>Lousada · (coloca aqui a morada completa da loja)</div>
+            </div>
+            <div>
+              <div class="contact-label">Telefone / WhatsApp</div>
+              <div>
+                Tel: <a href="tel:+351000000000">+351 000 000 000</a><br />
+                WhatsApp: <a href="#">+351 000 000 000</a>
+              </div>
+            </div>
+            <div>
+              <div class="contact-label">Horário</div>
+              <div>Seg – Sex: 9h00 – 19h00 · Sáb: 9h00 – 13h00</div>
+            </div>
+            <div>
+              <div class="contact-label">Redes sociais</div>
+              <div>
+                Instagram: <a href="#">@farma.clinic.lousada</a><br />
+                Facebook: <a href="#">Farma + Clinic Lousada</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Farma + Clinic · Lousada. Todos os direitos reservados.
+    </footer>
+  </main>
+
+  <script>
+    const products = [
+      {
+        name: "Rotina Completa Pele Oleosa",
+        category: "Dermocosmética",
+        tags: ["Promo"],
+        promoTag: "-20%",
+        price: "39,90 €",
+        oldPrice: "49,90 €",
+        skin: "Pele oleosa / acneica",
+      },
+      {
+        name: "Sérum Vitamina C Iluminador",
+        category: "Skin Care",
+        tags: ["Novo"],
+        promoTag: "",
+        price: "24,90 €",
+        oldPrice: "",
+        skin: "Pele baça / manchas ligeiras",
+      },
+      {
+        name: "Protetor Solar Diário SPF50+",
+        category: "Solar",
+        tags: ["Essencial"],
+        promoTag: "",
+        price: "18,90 €",
+        oldPrice: "",
+        skin: "Todos os tipos de pele",
+      },
+      {
+        name: "Base Fluida Clinic Cover",
+        category: "Maquilhagem",
+        tags: ["Sensível"],
+        promoTag: "",
+        price: "23,90 €",
+        oldPrice: "",
+        skin: "Pele sensível · vários tons",
+      },
+      {
+        name: "Creme Reparador de Barreira",
+        category: "Skin Care",
+        tags: ["Top Seller"],
+        promoTag: "-15%",
+        price: "21,50 €",
+        oldPrice: "25,30 €",
+        skin: "Pele seca / sensibilizada",
+      },
+      {
+        name: "Gel Limpeza Suave Bebé",
+        category: "Bebé",
+        tags: ["Bebé"],
+        promoTag: "",
+        price: "11,90 €",
+        oldPrice: "",
+        skin: "Pele delicada do bebé",
+      },
+      {
+        name: "Coffret Maquilhagem Dia-a-dia",
+        category: "Maquilhagem",
+        tags: ["Promo"],
+        promoTag: "-25%",
+        price: "29,90 €",
+        oldPrice: "39,90 €",
+        skin: "Todos os tipos",
+      },
+      {
+        name: "Hidratante Oil-Free",
+        category: "Dermocosmética",
+        tags: ["Novo"],
+        promoTag: "",
+        price: "19,90 €",
+        oldPrice: "",
+        skin: "Pele mista a oleosa",
+      },
+    ];
+
+    const grid = document.getElementById("products-grid");
+    const catButtons = document.querySelectorAll(".cat-pill");
+
+    function renderProducts(filter = "all") {
+      grid.innerHTML = "";
+      products
+        .filter((p) => {
+          if (filter === "all") return true;
+          if (filter === "Promo") return p.promoTag !== "";
+          return p.category === filter;
+        })
+        .forEach((p) => {
+          const card = document.createElement("article");
+          card.className = "product-card";
+          card.innerHTML = `
+            <div class="product-img">
+              Imagem do produto
+            </div>
+            <div class="product-badges">
+              <span class="product-pill">${p.category}</span>
+              ${p.promoTag ? `<span class="product-pill secondary">${p.promoTag}</span>` : ""}
+            </div>
+            <div class="product-name">${p.name}</div>
+            <div class="product-skin">${p.skin}</div>
+            <div class="product-bottom">
+              <div>
+                <div class="product-price">${p.price}</div>
+                ${
+                  p.oldPrice
+                    ? `<div class="product-old">${p.oldPrice}</div>`
+                    : ""
+                }
+              </div>
+              <button class="btn-add">Adicionar</button>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+    }
+
+    catButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        catButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderProducts(btn.dataset.filter);
+      });
+    });
+
+    renderProducts();
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
